@@ -1,6 +1,59 @@
 <PUBLIC:COMPONENT>
   
-  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->
+  
+  <!--
+  var disabled = "false";
+var selectedIndex;
+var value;
+var options;
+
+function get_disabled()
+{
+	return disabled;
+}
+
+function put_disabled(newValue)
+{
+	disabled = newValue;
+}
+
+function get_selectedIndex()
+{
+	return selectedIndex;
+}
+
+function put_selectedIndex(newValue)
+{
+	selectedIndex = newValue;
+}
+
+function get_value()
+{
+	return value;
+}
+
+function put_value(newValue)
+{
+	value = newValue;
+}
+
+function get_options()
+{
+	return options;
+}
+
+function focus()
+{
+	return "Temporary Value";
+}
+
+function blur()
+{
+	return "Temporary Value";
+}
+
+  -->  
   
   <PUBLIC:PROPERTY NAME="TextBox" />
   <PUBLIC:PROPERTY NAME="Text" />
@@ -19,8 +72,8 @@
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCombo_ContentReady()" />
   <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarCombo_DocumentReady()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -223,5 +276,5 @@
     return false;
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>  

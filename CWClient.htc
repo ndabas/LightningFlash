@@ -5,8 +5,8 @@
   
   <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -33,6 +33,6 @@
       style.posHeight -= parentElement.StatusBar.offsetHeight;
   }
   
-  </SCRIPT>
+  </script>
   
 </PUBLIC:COMPONENT>

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
- xmlns:cb="http://www15.brinkster.com/techinox/cb">
+ xmlns:cw="http://www15.brinkster.com/techinox/cw">
 
 <!--
   LightningFlash 1.0
@@ -145,6 +145,11 @@ function Style_Click()
   }
 }
 
+function document_click()
+{
+  document.recalc();
+}
+
 </script>
 
 <title>Techinox LightningFlash </title>
@@ -173,132 +178,132 @@ function Style_Click()
 
 </head>
 
-<body>
-<cb:bars id="CommandBars" style="visibility:hidden;" ContextMenu="mnuContext"
+<body onclick="return document_click();">
+<cw:bars id="CommandBars" style="visibility:hidden;" ContextMenu="mnuContext"
  onUIReady="return CommandBars_UIReady();" StatusBar="barStatus">
-<cb:menu id="mnuContext">
-  <cb:menuitem Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" onclick="LFAction('Cut');">Cut</cb:menuitem>
-  <cb:menuitem Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" onclick="LFAction('Copy');">Copy</cb:menuitem>
-  <cb:menuitem Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" onclick="LFAction('Paste');">Paste</cb:menuitem>
-  <cb:menuitem Prompt="Delete selection|Delete" Image="images/delete.gif" onclick="LFAction('Delete');">Delete</cb:menuitem>
-  <cb:menusep />
-  <cb:menuitem Prompt="Select the entire text|Select All" onclick="LFAction('SelectAll');">Select All</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuFile">
-  <cb:menuitem Image="images\newdoc.gif">New</cb:menuitem>
-  <cb:menuitem Image="images\open.gif">Open...</cb:menuitem>
-  <cb:menuitem Image="images\save.gif">Save</cb:menuitem>
-  <cb:menuitem Image="images\saveas.gif">Save As...</cb:menuitem>
-  <cb:menusep />
-  <cb:menuitem>Close</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuEdit">
-  <cb:menuitem Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" onclick="LFAction('Cut');">Cut</cb:menuitem>
-  <cb:menuitem Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" onclick="LFAction('Copy');">Copy</cb:menuitem>
-  <cb:menuitem Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" onclick="LFAction('Paste');">Paste</cb:menuitem>
-  <cb:menuitem Prompt="Delete selection|Delete" Image="images/delete.gif" onclick="LFAction('Delete');">Delete</cb:menuitem>
-  <cb:menusep />
-  <cb:menuitem Prompt="Select the entire text|Select All" onclick="LFAction('SelectAll');">Select All</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuViewToolbars">
-  <cb:menuitem State="Checked" onclick="this.State = 'Normal'">Standard</cb:menuitem>
-  <cb:menuitem State="Checked">Formatting</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuView">
-  <cb:menuitem SubMenu="mnuViewToolbars">Toolbars</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuInsert">
-  <cb:menuitem onclick="return InsertTextbox_Click();">Textbox</cb:menuitem>
-</cb:menu>
-<cb:menu id="mnuHelp">
-  <cb:menuitem>Help Topics...</cb:menuitem>
-  <cb:menuitem>About...</cb:menuitem>
-</cb:menu>
-<cb:bar>
-  <cb:button Menu="mnuFile">File</cb:button>
-  <cb:button Menu="mnuEdit" id="btnEdit">Edit</cb:button>
-  <cb:button Menu="mnuView" id="btnView">View</cb:button>
-  <cb:button Menu="mnuInsert" id="btnInsert">Insert</cb:button>
-  <cb:button Menu="mnuHelp" id="btnHelp">Help</cb:button>
-</cb:bar>
-<cb:bar id="barObjects">
-  <cb:button Image="images\link.gif" onclick="return InsertLink_Click();"/>
-  <cb:button Image="images\image.gif" onclick="return InsertImage_Click();"/>
-</cb:bar>
-<cb:bar>
-  <cb:button Image="images\newdoc.gif"/>
-  <cb:button Image="images\open.gif" />
-  <cb:button Image="images\save.gif" />
-  <cb:button Image="images\print.gif" />
-  <cb:barsep />
-  <cb:button Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" />
-  <cb:button Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" />
-  <cb:button Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" />
-  <cb:barsep />
-  <cb:button Image="images\undo.gif" />
-  <cb:button Image="images\redo.gif" />
-</cb:bar>
-<cb:bar id="barFormat">
-  <cb:button onclick="return Style_Click();">Style...</cb:button>
-  <cb:barsep />
-  <cb:combobox Options="optBlockStyle" Text="Normal" onchange="LFAction('FormatBlock', false, '<' + this.Value + '>');"/>
-  <cb:combobox Options="optFonts" TextBox="true" Prompt="Set the current font face|Font face" onchange="LFAction('FontName', false, this.Text)" style="cb--text-width: 70px;" Text="Verdana" />
-  <cb:combobox Options="optSizes" Prompt="Set the current font size|Font size" onchange="LFAction('FontSize', false, this.Value)" style="cb--text-width: 15px;" Text="" />
-  <cb:options id="optFonts" style="height:auto;width:100px;">
-    <cb:option Value="1">Tahoma</cb:option>
-    <cb:option Value="2">Verdana</cb:option>
-    <cb:option Value="3">Arial</cb:option>
-    <cb:option Value="4">Times New Roman</cb:option>
-  </cb:options>
-  <cb:options id="optBlockStyle" style="height:auto;width:100px;">
-    <cb:option Value="div">Normal</cb:option>
-    <cb:option Value="h1">Heading 1</cb:option>
-    <cb:option Value="h2">Heading 2</cb:option>
-    <cb:option Value="h3">Heading 3</cb:option>
-    <cb:option Value="h4">Heading 4</cb:option>
-    <cb:option Value="h5">Heading 5</cb:option>
-    <cb:option Value="h6">Heading 6</cb:option>
-    <cb:option Value="pre">Preformatted</cb:option>
-  </cb:options>
-  <cb:options id="optSizes" style="height:auto;width:15px;">
-    <cb:option Value="1"> 1 </cb:option>
-    <cb:option Value="2"> 2 </cb:option>
-    <cb:option Value="3"> 3 </cb:option>
-    <cb:option Value="4"> 4 </cb:option>
-    <cb:option Value="5"> 5 </cb:option>
-    <cb:option Value="6"> 6 </cb:option>
-    <cb:option Value="7"> 7 </cb:option>
-  </cb:options>
-  <cb:barsep />
-  <cb:button Image="images\bold.gif" onclick="return LFAction('Bold');"/>
-  <cb:button Image="images\italic.gif" onclick="return LFAction('Italic');"/>
-  <cb:button Image="images\under.gif" onclick="return LFAction('Underline');"/>
-  <cb:barsep />
-  <cb:button Image="images\fgcolor.gif" onclick="color=LFGetColor();if(color)LFAction('ForeColor', false, color);"/>
-  <cb:button Image="images\bgcolor.gif" onclick="color=LFGetColor();if(color)LFAction('BackColor', false, color);"/>
-  <cb:barsep />
-  <cb:button Image="images\left.gif" onclick="return LFAction('JustifyLeft');"/>
-  <cb:button Image="images\center.gif" onclick="return LFAction('JustifyCenter');"/>
-  <cb:button Image="images\right.gif" onclick="return LFAction('JustifyRight');"/>
-  <cb:barsep />
-  <cb:button Image="images\bullist.gif" onclick="return LFAction('InsertUnorderedList');"/>
-  <cb:button Image="images\numlist.gif" onclick="return LFAction('InsertOrderedList');"/>
-  <cb:barsep />
-  <cb:button Image="images\deindent.gif" onclick="return LFAction('Outdent');"/>
-  <cb:button Image="images\inindent.gif" onclick="return LFAction('Indent');"/>
-</cb:bar>
+<cw:menu id="mnuContext">
+  <cw:menuitem Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" onclick="LFAction('Cut');">Cut</cw:menuitem>
+  <cw:menuitem Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" onclick="LFAction('Copy');">Copy</cw:menuitem>
+  <cw:menuitem Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" onclick="LFAction('Paste');">Paste</cw:menuitem>
+  <cw:menuitem Prompt="Delete selection|Delete" Image="images/delete.gif" onclick="LFAction('Delete');">Delete</cw:menuitem>
+  <cw:menusep />
+  <cw:menuitem Prompt="Select the entire text|Select All" onclick="LFAction('SelectAll');">Select All</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuFile">
+  <cw:menuitem Image="images\newdoc.gif">New</cw:menuitem>
+  <cw:menuitem Image="images\open.gif">Open...</cw:menuitem>
+  <cw:menuitem Image="images\save.gif">Save</cw:menuitem>
+  <cw:menuitem Image="images\saveas.gif">Save As...</cw:menuitem>
+  <cw:menusep />
+  <cw:menuitem>Close</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuEdit">
+  <cw:menuitem Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" onclick="LFAction('Cut');">Cut</cw:menuitem>
+  <cw:menuitem Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" onclick="LFAction('Copy');">Copy</cw:menuitem>
+  <cw:menuitem Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" onclick="LFAction('Paste');">Paste</cw:menuitem>
+  <cw:menuitem Prompt="Delete selection|Delete" Image="images/delete.gif" onclick="LFAction('Delete');">Delete</cw:menuitem>
+  <cw:menusep />
+  <cw:menuitem Prompt="Select the entire text|Select All" onclick="LFAction('SelectAll');">Select All</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuViewToolbars">
+  <cw:menuitem State="Checked" onclick="this.State = 'Normal'">Standard</cw:menuitem>
+  <cw:menuitem State="Checked">Formatting</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuView">
+  <cw:menuitem SubMenu="mnuViewToolbars">Toolbars</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuInsert">
+  <cw:menuitem onclick="return InsertTextbox_Click();">Textbox</cw:menuitem>
+</cw:menu>
+<cw:menu id="mnuHelp">
+  <cw:menuitem>Help Topics...</cw:menuitem>
+  <cw:menuitem>About...</cw:menuitem>
+</cw:menu>
+<cw:bar>
+  <cw:button Menu="mnuFile">File</cw:button>
+  <cw:button Menu="mnuEdit" id="btnEdit">Edit</cw:button>
+  <cw:button Menu="mnuView" id="btnView">View</cw:button>
+  <cw:button Menu="mnuInsert" id="btnInsert">Insert</cw:button>
+  <cw:button Menu="mnuHelp" id="btnHelp">Help</cw:button>
+</cw:bar>
+<cw:bar id="barObjects">
+  <cw:button Image="images\link.gif" onclick="return InsertLink_Click();"/>
+  <cw:button Image="images\image.gif" onclick="return InsertImage_Click();"/>
+</cw:bar>
+<cw:bar>
+  <cw:button Image="images\newdoc.gif"/>
+  <cw:button Image="images\open.gif" />
+  <cw:button Image="images\save.gif" />
+  <cw:button Image="images\print.gif" />
+  <cw:barsep />
+  <cw:button Prompt="Cut the selection to the clipboard|Cut" Image="images/cut.gif" />
+  <cw:button Prompt="Copy the selection to the clipboard|Copy" Image="images/copy.gif" />
+  <cw:button Prompt="Paste the clipboard contents|Paste" Image="images/paste.gif" />
+  <cw:barsep />
+  <cw:button Image="images\undo.gif" />
+  <cw:button Image="images\redo.gif" />
+</cw:bar>
+<cw:bar id="barFormat">
+  <cw:button onclick="return Style_Click();">Style...</cw:button>
+  <cw:barsep />
+  <cw:combobox Options="optBlockStyle" Text="Normal" onchange="LFAction('FormatBlock', false, '<' + this.Value + '>');"/>
+  <cw:combobox Options="optFonts" TextBox="true" Prompt="Set the current font face|Font face" onchange="LFAction('FontName', false, this.Text)" style="cb--text-width: 70px;" Text="Verdana" />
+  <cw:combobox Options="optSizes" Prompt="Set the current font size|Font size" onchange="LFAction('FontSize', false, this.Value)" style="cb--text-width: 15px;" Text="" />
+  <cw:options id="optFonts" style="height:auto;width:100px;">
+    <cw:option Value="1">Tahoma</cw:option>
+    <cw:option Value="2">Verdana</cw:option>
+    <cw:option Value="3">Arial</cw:option>
+    <cw:option Value="4">Times New Roman</cw:option>
+  </cw:options>
+  <cw:options id="optBlockStyle" style="height:auto;width:100px;">
+    <cw:option Value="div">Normal</cw:option>
+    <cw:option Value="h1">Heading 1</cw:option>
+    <cw:option Value="h2">Heading 2</cw:option>
+    <cw:option Value="h3">Heading 3</cw:option>
+    <cw:option Value="h4">Heading 4</cw:option>
+    <cw:option Value="h5">Heading 5</cw:option>
+    <cw:option Value="h6">Heading 6</cw:option>
+    <cw:option Value="pre">Preformatted</cw:option>
+  </cw:options>
+  <cw:options id="optSizes" style="height:auto;width:15px;">
+    <cw:option Value="1"> 1 </cw:option>
+    <cw:option Value="2"> 2 </cw:option>
+    <cw:option Value="3"> 3 </cw:option>
+    <cw:option Value="4"> 4 </cw:option>
+    <cw:option Value="5"> 5 </cw:option>
+    <cw:option Value="6"> 6 </cw:option>
+    <cw:option Value="7"> 7 </cw:option>
+  </cw:options>
+  <cw:barsep />
+  <cw:button Image="images\bold.gif" onclick="return LFAction('Bold');"/>
+  <cw:button Image="images\italic.gif" onclick="return LFAction('Italic');"/>
+  <cw:button Image="images\under.gif" onclick="return LFAction('Underline');"/>
+  <cw:barsep />
+  <cw:button Image="images\fgcolor.gif" onclick="color=LFGetColor();if(color)LFAction('ForeColor', false, color);"/>
+  <cw:button Image="images\bgcolor.gif" onclick="color=LFGetColor();if(color)LFAction('BackColor', false, color);"/>
+  <cw:barsep />
+  <cw:button Image="images\left.gif" onclick="return LFAction('JustifyLeft');"/>
+  <cw:button Image="images\center.gif" onclick="return LFAction('JustifyCenter');"/>
+  <cw:button Image="images\right.gif" onclick="return LFAction('JustifyRight');"/>
+  <cw:barsep />
+  <cw:button Image="images\bullist.gif" onclick="return LFAction('InsertUnorderedList');"/>
+  <cw:button Image="images\numlist.gif" onclick="return LFAction('InsertOrderedList');"/>
+  <cw:barsep />
+  <cw:button Image="images\deindent.gif" onclick="return LFAction('Outdent');"/>
+  <cw:button Image="images\inindent.gif" onclick="return LFAction('Indent');"/>
+</cw:bar>
 <div id="client" style="background-color: #999;">
   <div id="divSlide" contentEditable="true">
   </div>
 </div>
-<cb:status id="barStatus" TextPane="stsTextPane" DefaultStatus="Ready">
-  <cb:control
+<cw:status id="barStatus" TextPane="stsTextPane" DefaultStatus="Ready">
+  <cw:control
    style="border: #ccc inset 1px; width: expression(document.body.clientWidth - stsCredit.offsetWidth - 8)"
-   id="stsTextPane">Ready</cb:control>
-  <cb:control Active="true" id="stsCredit" onclick="location='mailto:ndabas@hotmail.com?subject=Techinox LightningFlash'">
-  Created by Nikhil Dabas</cb:control>
-</cb:status>
-</cb:bars>
+   id="stsTextPane">Ready</cw:control>
+  <cw:control Active="true" id="stsCredit" onclick="location='mailto:ndabas@hotmail.com?subject=Techinox LightningFlash'">
+  Created by Nikhil Dabas</cw:control>
+</cw:status>
+</cw:bars>
 </body>
 
 </html>

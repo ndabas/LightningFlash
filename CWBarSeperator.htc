@@ -4,8 +4,8 @@
   
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarSep_ContentReady()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <SCRIPT>
   
@@ -20,6 +20,6 @@
     
   }
   
-  </SCRIPT>
+  </script>
   
 </PUBLIC:COMPONENT>  

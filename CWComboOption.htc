@@ -14,8 +14,8 @@
   <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarCmbOption_Click()" />
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCmbOption_ContentReady()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -54,5 +54,5 @@
     UpdatePrompt();
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>  

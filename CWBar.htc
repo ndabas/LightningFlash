@@ -8,8 +8,8 @@
   
   <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>  
+  <script language="JScript" src="CommandWidgets.js">
+  </script>  
   
   <script type="text/jscript">
   
@@ -27,7 +27,7 @@
     SetStyleDefault("height", CB_BAR_HEIGHT);
     SetStyleDefault("padding", "1px 1px 1px 1px");
     SetStyleDefault("verticalAlign", "middle");
-        
+    
   }
   
   function CmdBar_DocumentReady()
@@ -35,5 +35,5 @@
     
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>

@@ -5,8 +5,8 @@
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarMnuSep_ContentReady()" />
   <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarMnuSep_DocumentReady()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <SCRIPT>
   
@@ -26,6 +26,6 @@
     SetStyleDefault("fontSize", "0px");
   }
   
-  </SCRIPT>
+  </script>
   
 </PUBLIC:COMPONENT>  

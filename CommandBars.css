@@ -1,23 +1,23 @@
 /*
- *  Command Bar Styles
+ *  CommandWidgets Styles
  *  Created by Nikhil Dabas ( ndabas@hotmail.com ).
  */
 
 .glyph { font-family: webdings; font-size: 10pt; }
 
-cb\:bars     { behavior: url(CommandBars.htc); }
-cb\:bar      { behavior: url(CommandBar.htc); }
-cb\:status   { behavior: url(CommandBarStatusBar.htc); }
-cb\:barsep   { behavior: url(CommandBarSeperator.htc); }
-cb\:menusep  { behavior: url(CommandBarMenuSeperator.htc); }
-cb\:button   { behavior: url(CommandBarButton.htc); }
-cb\:control  { behavior: url(CommandBarStatusControl.htc); }
-cb\:menu     { behavior: url(CommandBarMenu.htc); }
-cb\:menuitem { behavior: url(CommandBarMenuItem.htc); }
-cb\:combobox { behavior: url(CommandBarComboBox.htc); }
-cb\:options  { behavior: url(CommandBarComboOptions.htc); }
-cb\:option   { behavior: url(CommandBarComboOption.htc); }
-#client      { behavior: url(Client.htc); }
+cw\:bars     { behavior: url(CWContainer.htc); }
+cw\:bar      { behavior: url(CWBar.htc); }
+cw\:status   { behavior: url(CWStatusBar.htc); }
+cw\:barsep   { behavior: url(CWBarSeperator.htc); }
+cw\:menusep  { behavior: url(CWMenuSeperator.htc); }
+cw\:button   { behavior: url(CWButton.htc); }
+cw\:control  { behavior: url(CWStatusControl.htc); }
+cw\:menu     { behavior: url(CWMenu.htc); }
+cw\:menuitem { behavior: url(CWMenuItem.htc); }
+cw\:combobox { behavior: url(CWComboBox.htc); }
+cw\:options  { behavior: url(CWComboOptions.htc); }
+cw\:option   { behavior: url(CWComboOption.htc); }
+#client      { behavior: url(CWClient.htc); }
 
 body {
   padding: 0px 0px 0px 0px;

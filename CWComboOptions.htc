@@ -14,8 +14,8 @@
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCmbOptions_ContentReady()" />
   <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarCmbOptions_DocumentReady()" />
 	
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -105,5 +105,5 @@
     style.display = "none";
   }
   
-	</SCRIPT>
+	</script>
 </PUBLIC:COMPONENT>

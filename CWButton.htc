@@ -17,8 +17,8 @@
   <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarBtn_Click()" />
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarBtn_ContentReady()" />
 	
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -160,5 +160,5 @@
     }
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>  

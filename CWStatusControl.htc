@@ -11,8 +11,8 @@
   <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarCtrl_MouseOut()" />
   <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCtrl_ContentReady()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -45,5 +45,5 @@
     UpdatePrompt();
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>

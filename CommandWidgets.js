@@ -72,8 +72,8 @@ CB_MNUI_COLOR_BG_ACTIVE = "#9cf";
 CB_MNUI_IMAGE_EMPTY = "images\\trans.gif";
 CB_MNUI_IMAGE_CHECKED = "images\\check.gif";
 
-CB_FILTER_SHADOW = "progid:DXImageTransform.Microsoft.dropShadow(" +
-  " Color=999999,offX=3,offY=3,positive=true)";
+CB_FILTER_SHADOW = "progid:DXImageTransform.Microsoft.Shadow(" +
+  "direction=135,color=#999999,strength=4)";
 CB_FILTER_DISABLED = "progid:DXImageTransform.Microsoft.BasicImage(" +
   " Rotation=0,Mirror=0,Invert=0,XRay=0,Grayscale=1,Opacity=1.00)";
 CB_FILTER_IMAGE_DISABLED = "progid:DXImageTransform.Microsoft.Alpha(" +
@@ -96,4 +96,32 @@ function TRACE(sMessage)
   }
   
   window.CBDebugWnd.WriteMessage(sMessage);
+}
+
+
+// The Skin Manager class
+
+function SkinMan(oElement, sBaseName)
+{
+	this.elem = oElement;
+	this.baseName = sBaseName;
+	this.ApplyClass = SkinMan_ApplyClass;
+}
+
+function SkinMan_ApplyClass(auxName)
+{
+	// Remove any existing skin
+	var classes = this.elem.className.split(" ");
+	for(key in classes)
+	{
+	  if(classes[key].indexOf(this.baseName) == 0)
+	    classes[key] = "";
+	}
+	// Add the specified skin
+	this.elem.className = classes.join(" ");
+	// Trim the string
+	this.elem.className = this.elem.className.replace(/(^\s*)|(\s*$)/g, "");
+	this.elem.className += " " + this.baseName + auxName;
+	
+	return true;
 }

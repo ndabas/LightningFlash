@@ -16,8 +16,8 @@
   <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBars_DocumentReady()" />
   <PUBLIC:ATTACH EVENT="oncontextmenu" ONEVENT="CmdBars_ContextMenu()" />
   
-  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
-  </SCRIPT>
+  <script language="JScript" src="CommandWidgets.js">
+  </script>
   
   <script type="text/jscript">
   
@@ -102,5 +102,5 @@
     return false;
   }
   
-  </SCRIPT>
+  </script>
 </PUBLIC:COMPONENT>
