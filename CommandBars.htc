@@ -1,0 +1,106 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Dock" />
+  <PUBLIC:PROPERTY NAME="ContextMenu" />
+  <PUBLIC:PROPERTY NAME="StatusBar" />
+  <PUBLIC:PROPERTY NAME="UsePrompts" />
+  
+  <PUBLIC:EVENT NAME="onUIReady" ID="evtUIReady" />
+  <PUBLIC:EVENT NAME="onBeforeContextMenu" ID="evtContext" />
+  
+  <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBars_Click()" />
+  <PUBLIC:ATTACH EVENT="onmousemove" ONEVENT="CmdBars_MouseMove()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBars_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBars_DocumentReady()" />
+  <PUBLIC:ATTACH EVENT="oncontextmenu" ONEVENT="CmdBars_ContextMenu()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oLastElem = null;
+  
+  function CmdBars_Click()
+  {
+    if(window.CmdBarMenu)
+      window.CmdBarMenu.HideMenu();
+  }
+  
+  function CmdBars_MouseMove()
+  {
+    // Prompts apparently cause the app's responsiveness to slow
+    // down considerably. The UsePrompts property can be used
+    // to disable these enhancements.
+    if(!UsePrompts)
+      return true;
+    
+    if(StatusBar.TextPane && event.srcElement != m_oLastElem)
+    {
+      m_oLastElem = event.srcElement;
+      if(event.srcElement.Status)
+        { StatusBar.TextPane.innerText = event.srcElement.Status; }
+      else
+      {
+        if(StatusBar.DefaultStatus)
+          StatusBar.TextPane.innerText = StatusBar.DefaultStatus;
+        else
+          StatusBar.TextPane.innerText = "";
+      }
+    }
+  }
+  
+  function CmdBars_ContentReady()
+  {
+    SetStyleDefault("backgroundColor", CB_COLOR_BG);
+    SetStyleDefault("color", CB_COLOR_FG);
+    SetStyleDefault("display", "block");
+    SetStyleDefault("fontFamily", CB_FONT_FAMILY);
+    SetStyleDefault("fontSize", "8pt");
+    SetStyleDefault("cursor", "default");
+    SetStyleDefault("verticalAlign", "middle");
+    window.document.body.scroll = "no";
+    
+    if(window.document.all[StatusBar])
+      StatusBar = window.document.all[StatusBar];
+    else
+      StatusBar = null;
+  }
+  
+  function CmdBars_DocumentReady()
+  {
+    evtUIReady.fire();
+    style.display = "block";
+  }
+  
+  function CmdBars_ContextMenu()
+  {
+    // Backdoor
+    if(event.ctrlKey)
+      return true;
+    
+    evtContext.fire();
+    
+    if(!window.document.all[ContextMenu])
+      return true;
+    
+    var x,y;
+    x = event.clientX;
+    y = event.clientY;
+    // X must accomodate scrollbar
+    if(x > (window.document.body.clientWidth - window.document.all[ContextMenu].clientWidth - 23))
+      x = window.document.body.clientWidth - window.document.all[ContextMenu].clientWidth - 23;
+    if(y > (window.document.body.clientHeight - window.document.all[ContextMenu].scrollHeight - 10))
+      y = window.document.body.clientHeight - window.document.all[ContextMenu].scrollHeight - 10;
+    if(x < 4) x = 4;
+    if(y < 4) y = 4;
+    window.document.all[ContextMenu].ShowMenu(x, y, null, false);
+    
+    event.returnValue = false;
+    return false;
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Select Color</title>
+<link rel="stylesheet" type="text/css" href="Dialogs.css" />
+<style>
+#tblColors td { width: 10px; height: 10px; }
+#divCurColor { width: 80px; height: 36px; border: 1px solid #000; margin: 2px; }
+</style>
+<script>
+
+var g_SelColor = "";
+
+function BuildColorTable() 
+{
+  var sz = "", cPick = new Array("00","33","66","99","CC","FF"), iCnt=2;
+  var iColors = cPick.length, szColor = "";
+
+
+  for (var r = 0; r < iColors; r++)
+  {
+    sz += "<tr>";
+    for (var g = iColors - 1; g >= 0; g--)
+      for (var b = iColors - 1; b >= 0; b--)
+      {
+        szColor = cPick[r] + cPick[g] + cPick[b];
+        sz += "<td style=\"background-color: " + szColor + ";\" title=\"#" + szColor + "\">";
+      }
+    sz += "</tr>";
+  }
+  
+  document.write(sz);
+}
+
+function Colors_MouseOver()
+{
+  divCurColor.style.backgroundColor = event.srcElement.style.backgroundColor;
+  return true;
+}
+
+function Colors_Click()
+{
+  g_SelColor = event.srcElement.style.backgroundColor;
+  txtSelColor.value = g_SelColor;
+  return true;
+}
+
+function Colors_MouseOut()
+{
+   divCurColor.style.backgroundColor = g_SelColor;
+   return true;
+}
+
+function SelColor_Change()
+{
+  g_SelColor = txtSelColor.value;
+  divCurColor.style.backgroundColor = g_SelColor;
+  return true;
+}
+
+function OK_Click()
+{
+  window.returnValue = g_SelColor;
+  window.close();
+  return true;
+}
+
+function Cancel_Click()
+{
+  window.close();
+  return true;
+}
+
+</script>
+</head>
+<body>
+<table><tr>
+  <td>Select a color: <input style="vertical-align: middle;" type="text" id="txtSelColor"
+   size="20" onchange="return SelColor_Change();" />
+  <table valign="top" id="tblColors" onclick="return Colors_Click();"
+   onmouseover="return Colors_MouseOver();" onmouseout="return Colors_MouseOut();"
+   cellpadding="0" cellspacing="0">
+  <script>BuildColorTable();</script>
+  </table></td>
+  <td><button type="submit" onclick="return OK_Click();">OK</button><br />
+  <button type="reset" onclick="return Cancel_Click();">Cancel</button><br />
+  <div id="divCurColor"></div></td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Type" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  
+  <PUBLIC:METHOD NAME="ShowMenu" />
+  <PUBLIC:METHOD NAME="HideMenu" />
+  <PUBLIC:METHOD NAME="SetActiveSubMenu" />
+  <PUBLIC:METHOD NAME="HideSubMenu" />
+  
+  <PUBLIC:EVENT NAME="onPopup" ID="evtPopup" />
+	
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarMnu_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarMnu_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarMnu_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarMnu_DocumentReady()" />
+	
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oActiveElem = null;
+  var m_oActiveSubMenu = null;
+  var m_bIsSubMenu = false;
+  
+  function CmdBarMnu_MouseOver()
+  {
+    
+  }
+  
+  function CmdBarMnu_MouseOut()
+  {
+    
+  }
+  
+  function SetActiveSubMenu(menu)
+  {
+    if(m_oActiveSubMenu)
+    {
+      m_oActiveSubMenu.HideMenu();
+    }
+    
+    m_oActiveSubMenu = menu;
+  }
+  
+  function HideSubMenu()
+  {
+    if(m_oActiveSubMenu)
+    {
+      m_oActiveSubMenu.HideMenu();
+    }
+    
+    m_oActiveSubMenu = null;
+  }
+  
+  function ShowMenu(x, y, activeElem, isSubMenu)
+  {
+    evtPopup.fire();
+    
+    m_bIsSubMenu = isSubMenu;
+    
+    if((window.CmdBarMenu != null) && (!m_bIsSubMenu))
+      window.CmdBarMenu.HideMenu();
+        
+    style.posTop = y;
+    style.posLeft = x;
+    
+    m_oActiveElem = activeElem;
+    if(m_oActiveElem)
+    {
+      m_oActiveElem.State = "MenuVisible";
+    }
+    
+    if((style.posTop + scrollHeight + 10) > window.document.body.clientHeight)
+    {
+      style.height = window.document.body.clientHeight - offsetHeight - 33;
+    }
+    
+    if(m_bIsSubMenu)
+      style.zIndex = 20;
+    style.display = "block";
+    
+    if(!m_bIsSubMenu) window.CmdBarMenu = element;
+    window.CmdBarMenuClicked = true;
+  }
+  
+  function HideMenu()
+  {
+    if(m_oActiveElem)
+    {
+      m_oActiveElem.State = "Normal";
+      m_oActiveElem = null;
+    }
+    
+    if(m_oActiveSubMenu)
+    {
+      m_oActiveSubMenu.HideMenu();
+      m_oActiveSubMenu = null;
+    }
+    
+    style.zIndex = 10;
+    style.display = "none";
+    style.height = "auto";
+    if(!m_bIsSubMenu) window.CmdBarMenu = null;
+    window.CmdBarMenuClicked = false;
+  }
+  
+  function CmdBarMnu_ContentReady()
+  {
+    style.display = "block";
+    style.position = "absolute";
+    SetStyleDefault("border", CB_MNU_BORDER);
+    SetStyleDefault("backgroundColor", CB_COLOR_BG);    
+    SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    SetStyleDefault("width", "70px");
+    SetStyleDefault("zIndex", "10");
+    SetStyleDefault("whiteSpace", "nowrap");
+    SetStyleDefault("overflow-y", "auto");
+    SetStyleDefault("filter", CB_FILTER_SHADOW);
+        
+    UpdatePrompt();
+  }
+  
+  function CmdBarMnu_DocumentReady()
+  {
+    var w = clientWidth;
+    for(i = 0; i < children.length; i++)
+    {
+      children[i].style.posWidth = w;
+    }
+    
+    style.display = "none";
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>

@@ -1,0 +1,49 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Active" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarCtrl_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarCtrl_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCtrl_ContentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  function CmdBarCtrl_MouseOver()
+  {
+    if(Active)
+    {
+      style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+      style.border = CB_CTL_BORDER_ACTIVE;
+    }
+  }
+  
+  function CmdBarCtrl_MouseOut()
+  {
+    if(Active)
+    {
+      style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+      style.border = CB_CTL_BORDER_NORMAL;
+    }
+  }
+  
+  function CmdBarCtrl_ContentReady()
+  {
+    SetStyleDefault("height", CB_STS_BAR_HEIGHT);
+    SetStyleDefault("border", CB_CTL_BORDER_NORMAL);
+    SetStyleDefault("padding", "2px 2px 2px 2px");
+    SetStyleDefault("overflow", "hidden");
+    if(Active) SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    
+    UpdatePrompt();
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>

@@ -1,0 +1,58 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Type" />
+  <PUBLIC:PROPERTY NAME="State" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  <PUBLIC:PROPERTY NAME="Value" />
+	
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarCmbOption_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarCmbOption_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarCmbOption_Click()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCmbOption_ContentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  function CmdBarCmbOption_MouseOver()
+  {
+    //style.backgroundColor = CB_MNUI_COLOR_BG_ACTIVE;
+    style.backgroundColor = "#009";
+    style.color = "#fff";
+    //style.border = CB_CTL_BORDER_ACTIVE;
+  }
+  
+  function CmdBarCmbOption_MouseOut()
+  {
+    style.backgroundColor = CB_MNUI_COLOR_BG_NORMAL;
+    style.color = "";
+    //style.border = CB_CTL_BORDER_NORMAL;
+  }
+  
+  function CmdBarCmbOption_Click()
+  {
+    parentElement.SetComboValue(innerText, Value);
+  }
+  
+  function CmdBarCmbOption_ContentReady()
+  {
+    style.display = "block";
+    SetStyleDefault("height", "auto");
+    SetStyleDefault("width", "auto");
+    SetStyleDefault("padding", "1px");
+    //SetStyleDefault("border", CB_CTL_BORDER_NORMAL);
+    SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    SetStyleDefault("verticalAlign", "middle");
+    
+    if((title == "") || (title == null)) title = innerText;
+    
+    UpdatePrompt();
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>  

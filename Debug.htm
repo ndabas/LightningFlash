@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->
+
+<head>
+<title>Debug Messages</title>
+<script type="text/jscript">
+function WriteMessage(sMsg)
+{
+  divMsgs.innerText += sMsg;
+  divMsgs.innerHTMl += "<br />";
+  divBottom.scrollIntoView();
+}
+</script>
+</head>
+<body>
+<div id="divMsgs" style="font-family:Lucida Console;font-size:9pt;">
+
+</div>
+<div id="divBottom">
+</div>
+</body>
+</html>

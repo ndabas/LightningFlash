@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Insert Image</title>
+<link rel="stylesheet" type="text/css" href="Dialogs.css" />
+<script>
+
+function OK_Click()
+{
+  var arr = new Array();
+  arr["src"] = txtURL.value;
+  arr["alt"] = txtAlt.value;
+  arr["height"] = txtHeight.value;
+  arr["width"] = txtWidth.value;
+  window.returnValue = arr;
+  window.close();
+  return true;
+}
+
+function Cancel_Click()
+{
+  window.close();
+  return true;
+}
+
+</script>
+</head>
+<body>
+<table><tr>
+  <td>
+  <table>
+  <tr><td>Image URL: <input type="file" id="txtURL" style="width: 200px; vertical-align: middle;" /></td></tr>
+  <tr><td>Height: <input type="text" id="txtHeight" style="width: 40px; vertical-align: middle;" />
+  Width: <input type="text" id="txtWidth" style="width: 40px; vertical-align: middle;" /></td></tr>
+  <tr><td>Alternate Text: <input type="text" id="txtAlt" style="width: 180px; vertical-align: middle;" /></td></tr>
+  </table>
+  </td>
+  <td valign="top"><button type="submit" onclick="return OK_Click();">OK</button><br />
+  <button type="reset" onclick="return Cancel_Click();">Cancel</button></td>
+</tr>
+</table>
+</body>
+</html>

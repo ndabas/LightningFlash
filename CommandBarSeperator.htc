@@ -1,0 +1,25 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarSep_ContentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <SCRIPT>
+  
+  function CmdBarSep_ContentReady()
+  {
+    SetStyleDefault("backgroundColor", "#999");
+    SetStyleDefault("height", CB_CTL_HEIGHT);
+    SetStyleDefault("width", "1px");
+    SetStyleDefault("marginRight", "2px");
+    SetStyleDefault("marginLeft", "2px");
+    SetStyleDefault("verticalAlign", "middle");
+    
+  }
+  
+  </SCRIPT>
+  
+</PUBLIC:COMPONENT>  

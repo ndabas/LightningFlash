@@ -1,0 +1,43 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Type" />
+  <PUBLIC:PROPERTY NAME="TextPane" />
+  <PUBLIC:PROPERTY NAME="DefaultStatus" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarStatusbar_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarStatusbar_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarStatusbar_DocumentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>  
+  
+  <script type="text/jscript">
+  
+  function CmdBarStatusbar_MouseOver()
+  {
+  
+  }
+  
+  function CmdBarStatusbar_ContentReady()
+  {
+    SetStyleDefault("border", "0px");
+    SetStyleDefault("margin", "0px");
+    SetStyleDefault("height", CB_STS_BAR_HEIGHT);
+    SetStyleDefault("padding", "2px 2px 2px 2px");
+    SetStyleDefault("verticalAlign", "middle");
+    
+    if(window.document.all[TextPane])
+    {
+      TextPane = window.document.all[TextPane];
+    }
+  }
+  
+  function CmdBarStatusbar_DocumentReady()
+  {
+    
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>

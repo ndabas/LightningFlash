@@ -1,0 +1,109 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Type" />
+  
+  <PUBLIC:METHOD NAME="ShowOptions" />
+  <PUBLIC:METHOD NAME="HideOptions" />
+  <PUBLIC:METHOD NAME="HideMenu" />
+  <PUBLIC:METHOD NAME="SetComboValue" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarCmbOptions_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarCmbOptions_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCmbOptions_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarCmbOptions_DocumentReady()" />
+	
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oActiveElem = null;
+  
+  function CmdBarCmbOptions_MouseOver()
+  {
+    
+  }
+  
+  function CmdBarCmbOptions_MouseOut()
+  {
+    
+  }
+  
+  function SetComboValue(sText, nValue)
+  {
+    if(m_oActiveElem)
+    {
+      m_oActiveElem.Text = sText;
+      m_oActiveElem.Value = nValue;
+    }      
+  }
+  
+  function ShowOptions(x, y, activeElem)
+  {
+    if(window.CmdBarMenu != null)
+      window.CmdBarMenu.HideMenu();
+        
+    style.posTop = y;
+    style.posLeft = x;
+    
+    m_oActiveElem = activeElem;
+    if(m_oActiveElem)
+    {
+      m_oActiveElem.State = "OptionsVisible";
+      if(m_oActiveElem.offsetWidth > style.posWidth)
+      style.width = m_oActiveElem.offsetWidth;
+    }
+    
+    if((style.posTop + scrollHeight + 15) > window.document.body.clientHeight)
+    {
+      style.height = window.document.body.clientHeight - offsetHeight - 37;
+    }
+    
+    style.display = "block";
+    
+    window.CmdBarMenu = element;
+    window.CmdBarMenuClicked = true;
+  }
+  
+  function HideOptions()
+  {
+    if(m_oActiveElem)
+    {
+      m_oActiveElem.State = "Normal";
+      m_oActiveElem = null;
+    }
+        
+    style.display = "none";
+    window.CmdBarMenu = null;
+    window.CmdBarMenuClicked = false;
+  }
+  
+  function HideMenu()
+  {
+    HideOptions();
+  }
+  
+  function CmdBarCmbOptions_ContentReady()
+  {
+    style.display = "block";
+    style.position = "absolute";
+    SetStyleDefault("border", CB_MNU_BORDER);
+    SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    SetStyleDefault("width", "auto");
+    SetStyleDefault("height", "100px");
+    SetStyleDefault("zIndex", "10");
+    SetStyleDefault("whiteSpace", "nowrap");
+    SetStyleDefault("overflow", "auto");
+    SetStyleDefault("padding", "1px");
+    SetStyleDefault("backgroundColor", CB_MNUI_COLOR_BG_NORMAL);
+  }
+  
+  function CmdBarCmbOptions_DocumentReady()
+  {
+    style.display = "none";
+  }
+  
+	</SCRIPT>
+</PUBLIC:COMPONENT>

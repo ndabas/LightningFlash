@@ -1,0 +1,227 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="TextBox" />
+  <PUBLIC:PROPERTY NAME="Text" />
+  <PUBLIC:PROPERTY NAME="Options" />
+  <PUBLIC:PROPERTY NAME="State" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  <PUBLIC:PROPERTY NAME="Value" />
+  
+  <PUBLIC:EVENT NAME="onchange" ID="evtChange" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarCombo_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarCombo_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarCombo_Click()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarCombo_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarCombo_DocumentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oTextSpan = null;
+  var m_oDropGlyph = null;
+  var m_bTxtHasFocus = false;
+  
+  function CmdBarCombo_DocumentReady()
+  {
+    if(Options && (window.document.all[Options] != null))
+      Options = window.document.all[Options];
+    else
+      Options = null;
+  }
+  
+  function CmdBarCombo_ContentReady()
+  {
+    SetStyleDefault("height", CB_CTL_HEIGHT);
+    SetStyleDefault("border", CB_CTL_BORDER_NORMAL);
+    SetStyleDefault("padding", "2px 3px 1px 3px");
+    SetStyleDefault("margin", "0px 0px 0px 0px");
+    SetStyleDefault("verticalAlign", "middle");
+    SetStyleDefault("whiteSpace", "nowrap");
+    
+    UpdatePrompt();
+    
+    SetCustomStyleDefault("cb--text-width", "cbTextWidth", "80px")
+    
+    if(State == "Disabled")
+    {
+      style.color = CB_COLOR_DISABLED;
+    }
+    if(State == "Normal" || State == "" || State == null)
+    {
+      style.color = CB_COLOR_FG;
+      State = "Normal";
+    }
+    
+    var sHTML = "<span id=\"" + uniqueID + "_text\">";
+    sHTML += Text;
+    sHTML += "</span>";
+    insertAdjacentHTML("AfterBegin", sHTML);
+    m_oTextSpan = window.document.all[uniqueID + "_text"];
+    m_oTextSpan.style.border = CB_INPUT_CTL_BORDER_NORMAL;
+    m_oTextSpan.style.backgroundColor = CB_INPUT_CTL_COLOR_BG;
+    m_oTextSpan.style.margin = "0px";
+    m_oTextSpan.style.padding = "1px 1px 1px 1px";
+    m_oTextSpan.style.height = CB_INPUT_CTL_HEIGHT;
+    m_oTextSpan.style.overflow = "hidden";
+    m_oTextSpan.style.width = style.cbTextWidth;
+    m_oTextSpan.Status = Status;
+    m_oTextSpan.Title = Title;
+    m_oTextSpan.title = title;
+    
+    if(TextBox)
+    {
+      m_oTextSpan.contentEditable = "true";
+      m_oTextSpan.onchange = CmdBarCombo_TxtChange;
+      m_oTextSpan.onfocus = CmdBarCombo_TxtFocus;
+      m_oTextSpan.onblur = CmdBarCombo_TxtBlur;
+      m_oTextSpan.onkeypress = CmdBarCombo_TxtKeyPress;
+    }
+    else
+    {
+      m_oTextSpan.onclick = CmdBarCombo_DGClick;
+    }
+    
+    if(Options != null)
+    {
+      var sHTML = "<span id=\"" + uniqueID + "_dropglyph\">6</span>";
+      insertAdjacentHTML("BeforeEnd", sHTML);
+      m_oDropGlyph = window.document.all[uniqueID + "_dropglyph"];
+      m_oDropGlyph.style.fontFamily = "webdings";
+      m_oDropGlyph.style.fontSize = "10px";
+      m_oDropGlyph.style.textAlign = "center";
+      m_oDropGlyph.style.width = "12px";
+      //m_oDropGlyph.style.padding = "0px 0px 0px 2px";
+      m_oDropGlyph.style.margin = "0px";
+      m_oDropGlyph.style.position = "relative";
+      m_oDropGlyph.style.top = "-3px";
+      m_oDropGlyph.style.height = "12px";
+      m_oDropGlyph.style.border = CB_INPUT_CTL_BORDER_NORMAL;
+      m_oDropGlyph.style.borderLeft = "none";
+      m_oDropGlyph.style.verticalAlign = "middle";
+      m_oDropGlyph.onclick = CmdBarCombo_DGClick;
+      m_oDropGlyph.Status = Status;
+      m_oDropGlyph.Title = Title;
+      m_oDropGlyph.title = title;
+    }
+    
+    attachEvent("onpropertychange", CmdBarCombo_PropChange);
+  }
+  
+  function CmdBarCombo_MouseOver()
+  {
+    if(State == "Disabled")
+      return;
+    
+    if(m_oDropGlyph)
+    {
+      m_oDropGlyph.style.border = CB_INPUT_CTL_BORDER_ACTIVE;
+      m_oDropGlyph.style.borderLeft = "none";
+      m_oDropGlyph.style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+    }
+    m_oTextSpan.style.border = CB_INPUT_CTL_BORDER_ACTIVE;
+  }
+  
+  function CmdBarCombo_MouseOut()
+  {
+    if(State == "Disabled")
+      return;
+    
+    if(!m_bTxtHasFocus)
+    {
+      m_oTextSpan.style.border = CB_INPUT_CTL_BORDER_NORMAL;
+      if(m_oDropGlyph)
+      {
+        m_oDropGlyph.style.border = CB_INPUT_CTL_BORDER_NORMAL;
+        m_oDropGlyph.style.borderLeft = "none";
+        m_oDropGlyph.style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+      }
+    }
+  }
+  
+  function CmdBarCombo_Click()
+  {
+    return true;
+  }
+  
+  function CmdBarCombo_TxtKeyPress()
+  {
+    if(event.keyCode == 13)
+    {
+      var oTxtRange = window.document.body.createTextRange();
+      oTxtRange.moveToElementText(m_oTextSpan);
+      oTxtRange.select();
+      event.returnValue = false;
+      event.cancelBubble = true;
+    }
+  }
+  
+  function CmdBarCombo_TxtFocus()
+  {
+    m_bTxtHasFocus = true;
+    CmdBarCombo_MouseOver();
+  }
+  
+  function CmdBarCombo_TxtBlur()
+  {
+    m_bTxtHasFocus = false;
+    CmdBarCombo_MouseOut();
+  }
+  
+  function CmdBarCombo_PropChange()
+  {
+    switch(window.event.propertyName)
+    {
+      case "Text":
+        m_oTextSpan.innerText = Text;
+        //evtChange.fire();
+        break;
+      
+      case "Value":
+        evtChange.fire();
+        break;
+      
+      case "State":
+        if(State == "Disabled")
+        {
+          style.color = CB_COLOR_DISABLED;
+        }
+        if(State == "Normal" || State == "")
+        {
+          style.color = CB_COLOR_FG;
+        }
+        break;
+    }
+  }
+  
+  function CmdBarCombo_TxtChange()
+  {
+    Text = m_oTextSpan.innerText;
+  }
+  
+  function CmdBarCombo_DGClick()
+  {
+    if(State == "Normal" || State == "")
+    {
+      var x, y;
+      y = offsetTop + parentElement.offsetTop + parentElement.offsetHeight - 6;
+      x = offsetLeft + parentElement.offsetLeft + 5;
+      Options.ShowOptions(x, y, element);
+    }
+    else if(State == "OptionsVisible")
+    {
+      Options.HideOptions();
+    }
+    event.returnValue = false;
+    event.cancelBubble = true;
+    return false;
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>  

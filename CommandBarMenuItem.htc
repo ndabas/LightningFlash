@@ -1,0 +1,194 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:PROPERTY NAME="Type" />
+  <PUBLIC:PROPERTY NAME="State" />
+  <PUBLIC:PROPERTY NAME="HotImage" />
+  <PUBLIC:PROPERTY NAME="DisabledImage" />
+  <PUBLIC:PROPERTY NAME="Image" />
+  <PUBLIC:PROPERTY NAME="SubMenu" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarMnuItem_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarMnuItem_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarMnuItem_Click()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarMnuItem_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarMnuItem_DocumentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oIcon = null;
+  var m_oCheckGlyph = null;
+  var m_oImage = null;
+  
+  function CmdBarMnuItem_MouseOver()
+  {
+    if(State == "Disabled")
+      return;
+    
+    UpdateState();
+    style.backgroundColor = CB_MNUI_COLOR_BG_ACTIVE;
+    style.border = CB_CTL_BORDER_ACTIVE;
+    m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+    
+    parentElement.HideSubMenu();
+    
+    if(!window.document.all[SubMenu])
+      return;
+    
+    parentElement.SetActiveSubMenu(window.document.all[SubMenu]);
+    var x,y;
+    x = parentElement.style.posLeft + parentElement.clientWidth - 2;
+    y = parentElement.style.posTop + offsetTop + 2;
+    if(x > (window.document.body.clientWidth - window.document.all[SubMenu].clientWidth - 23))
+      x = parentElement.posLeft;
+    if(y > (window.document.body.clientHeight - window.document.all[SubMenu].scrollHeight - 10))
+      y = window.document.body.clientHeight - window.document.all[SubMenu].scrollHeight - 10;
+    if(x < 4) x = 4;
+    if(y < 4) y = 4;
+    window.document.all[SubMenu].ShowMenu(x, y, element, true);
+  }
+  
+  function CmdBarMnuItem_MouseOut()
+  {
+    //TRACE("MouseOut " + event.srcElement.id);
+    UpdateState();
+    style.backgroundColor = CB_MNUI_COLOR_BG_NORMAL;
+    style.border = CB_CTL_BORDER_NORMAL;
+    if(State != "Checked")
+      m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+  }
+  
+  function CmdBarMnuItem_Click()
+  {
+    if(State == "Disabled")
+      return;
+    
+    if(!window.document.all[SubMenu])
+      parentElement.HideMenu();
+  }
+  
+  function CmdBarMnuItem_DocumentReady()
+  {
+    SetStyleDefault("width", "100%");
+  }
+  
+  function CmdBarMnuItem_ContentReady()
+  {
+    UpdatePrompt();
+    
+    var sHTML = "<span id=\"" + uniqueID + "_icon\" style=\"width: 23px; height: 23px;"
+      + " background-color: #eee; \">"
+    
+    if (!Image || Image == "")
+      Image = CB_MNUI_IMAGE_EMPTY;
+    
+    sHTML += "<img style=\"vertical-align: middle;\" id=\""
+      + uniqueID + "_image\" src=\"" + Image + "\" />";
+    SetStyleDefault("padding", "0px 10px 0px 1px");
+    
+    sHTML += "</span> ";
+    
+    sHTML += " <span class=\"glyph\" style=\"visibility:hidden;position:relative;left:-21px;top:-1px;\" id=\"" + uniqueID + "_glyphc\">a</span>";
+    insertAdjacentHTML("AfterBegin", sHTML);
+    
+    m_oCheckGlyph = window.document.all[uniqueID + "_glyphc"];
+    
+    m_oImage = window.document.all[uniqueID + "_image"];
+    m_oImage.Status = Status;
+    m_oImage.Title = Title;
+    m_oImage.title = title;
+    
+    m_oIcon = window.document.all[uniqueID + "_icon"];
+    m_oIcon.Status = Status;
+    m_oIcon.Title = Title;
+    m_oIcon.title = title;
+    
+    sHTML = " <span class=\"glyph\" id=\"" + uniqueID + "_glyph\">4</span>";
+    if(window.document.all[SubMenu])
+      insertAdjacentHTML("BeforeEnd", sHTML);
+    
+    style.display = "block";
+    SetStyleDefault("height", CB_CTL_HEIGHT);
+    SetStyleDefault("paddingRight", "5px");
+    SetStyleDefault("border", CB_CTL_BORDER_NORMAL);
+    SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    SetStyleDefault("backgroundColor", CB_MNUI_COLOR_BG_NORMAL);
+    SetStyleDefault("verticalAlign", "middle");
+    
+    if(!State || State == "")
+      State = "Normal";
+    UpdateState();
+    
+    if(m_oImage)
+      m_oImage.src = Image;
+    
+    attachEvent("onpropertychange", CmdBarMnu_PropChange);
+  }
+  
+  function CmdBarMnu_PropChange()
+  {
+    switch(window.event.propertyName)
+    {
+      case "State":
+        UpdateState();
+        break;
+      case "Image":
+        if(m_oImage) m_oImage.src = Image;
+        break;
+      case "Prompt":
+        UpdatePrompt();
+        break;
+    }
+  }
+  
+  function UpdateState()
+  {
+    //TRACE("UpdateState " + uniqueID + " " + State);
+    if(State == "Disabled")
+    {
+      style.filter = CB_FILTER_DISABLED;
+      style.color = CB_COLOR_DISABLED;
+      m_oIcon.style.border = "";
+      m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+      m_oIcon.style.filter = CB_FILTER_IMAGE_DISABLED;
+      return;
+    }
+    if(State == "Checked")
+    {
+      if(Image == CB_MNUI_IMAGE_EMPTY)
+      {
+        //Image = CB_MNUI_IMAGE_CHECKED;
+        m_oCheckGlyph.style.visibility = "visible";
+      }
+      m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+      m_oIcon.style.border = CB_CTL_BORDER_ACTIVE;
+      return;
+    }
+    if(State == "Normal")
+    {
+      m_oCheckGlyph.style.visibility = "hidden";
+      style.filter = "";
+      style.color = CB_COLOR_FG;
+      m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+      m_oIcon.style.border = "";
+      m_oIcon.style.filter = "";
+      return;
+    }
+    if(State == "MenuVisible")
+    {
+      style.backgroundColor = CB_MNUI_COLOR_BG_ACTIVE;
+      style.border = CB_CTL_BORDER_ACTIVE;
+      m_oIcon.style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+      return;
+    }
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>  

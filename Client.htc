@@ -1,0 +1,38 @@
+<PUBLIC:COMPONENT>
+  
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarClient_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarClient_DocumentReady()" />
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  function CmdBarClient_ContentReady()
+  {
+    SetStyleDefault("backgroundColor", "#fff");
+    SetStyleDefault("color", "#000");
+    SetStyleDefault("overflow", "auto");
+    SetStyleDefault("display", "block");
+    SetStyleDefault("width", "100%");
+    SetStyleDefault("border", "2px inset #fff");
+  }
+  
+  function CmdBarClient_DocumentReady()
+  {
+    CmdBarClient_Resize();
+    window.document.body.onresize = CmdBarClient_Resize;
+  }
+  
+  function CmdBarClient_Resize()
+  {
+    style.posHeight = window.document.body.clientHeight - offsetTop;
+    if(parentElement.StatusBar)
+      style.posHeight -= parentElement.StatusBar.offsetHeight;
+  }
+  
+  </SCRIPT>
+  
+</PUBLIC:COMPONENT>

@@ -1,0 +1,31 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarMnuSep_ContentReady()" />
+  <PUBLIC:ATTACH EVENT="ondocumentready" ONEVENT="CmdBarMnuSep_DocumentReady()" />
+  
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <SCRIPT>
+  
+  function CmdBarMnuSep_DocumentReady()
+  {
+    SetStyleDefault("width", "100%");
+  }
+  
+  function CmdBarMnuSep_ContentReady()
+  {
+    SetStyleDefault("display", "block");
+    SetStyleDefault("backgroundColor", CB_MNU_COLOR_SEPERATOR);
+    SetStyleDefault("height", "1px");
+    SetStyleDefault("margin", "0px");
+    SetStyleDefault("padding", "0px");
+    SetStyleDefault("border", "0px");
+    SetStyleDefault("fontSize", "0px");
+  }
+  
+  </SCRIPT>
+  
+</PUBLIC:COMPONENT>  

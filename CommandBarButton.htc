@@ -1,0 +1,164 @@
+<PUBLIC:COMPONENT>
+  
+  <!-- Created by Nikhil Dabas (ndabas@hotmail.com) -->  
+  	
+  <PUBLIC:PROPERTY NAME="Type" />
+  <PUBLIC:PROPERTY NAME="State" />
+  <PUBLIC:PROPERTY NAME="HotImage" />
+  <PUBLIC:PROPERTY NAME="DisabledImage" />
+  <PUBLIC:PROPERTY NAME="Image" />
+  <PUBLIC:PROPERTY NAME="Menu" />
+  <PUBLIC:PROPERTY NAME="Prompt" />
+  <PUBLIC:PROPERTY NAME="Status" />
+  <PUBLIC:PROPERTY NAME="Title" />
+  
+  <PUBLIC:ATTACH EVENT="onmouseover" ONEVENT="CmdBarBtn_MouseOver()" />
+  <PUBLIC:ATTACH EVENT="onmouseout" ONEVENT="CmdBarBtn_MouseOut()" />
+  <PUBLIC:ATTACH EVENT="onclick" ONEVENT="CmdBarBtn_Click()" />
+  <PUBLIC:ATTACH EVENT="oncontentready" ONEVENT="CmdBarBtn_ContentReady()" />
+	
+  <SCRIPT LANGUAGE="JScript" SRC="CommandBars.js">
+  </SCRIPT>
+  
+  <script type="text/jscript">
+  
+  var m_oImage = null;
+  
+  function CmdBarBtn_MouseOver()
+  {
+    if(State == "Disabled")
+      return;
+    
+    style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+    style.border = CB_CTL_BORDER_ACTIVE;
+    
+    if(Image && HotImage)
+    {
+      m_oImage.src = HotImage;
+    }
+    
+    if(window.CmdBarMenuClicked)
+      ShowMenu();
+  }
+  
+  function CmdBarBtn_MouseOut()
+  {
+    if(State == "Checked")
+      return;
+    
+    style.backgroundColor = CB_CTL_COLOR_BG_NORMAL;
+    style.border = CB_CTL_BORDER_NORMAL;
+    
+    if(Image && HotImage)
+    {
+      m_oImage.src = Image;
+    }
+  }
+  
+  function CmdBarBtn_Click()
+  {
+    if(State == "Disabled")
+      return;
+    
+    ShowMenu();
+  }
+  
+  function CmdBarBtn_ContentReady()
+  {
+    UpdatePrompt();
+    
+    if (Image)
+    {
+      var sImgTag = "<img style=\"vertical-align: middle;\" id=\"" + uniqueID + "_image\" src=\"" + Image + "\" />";
+      insertAdjacentHTML("AfterBegin", sImgTag);
+      SetStyleDefault("padding", "0px 1px 0px 1px");
+      
+      m_oImage = window.document.all[uniqueID + "_image"];
+      
+      m_oImage.Status = Status;
+      m_oImage.Title = Title;
+      m_oImage.title = title;
+    }
+    else
+    {
+      SetStyleDefault("padding", "4px 3px 2px 3px");
+    }
+    
+    SetStyleDefault("height", CB_CTL_HEIGHT);
+    SetStyleDefault("border", CB_CTL_BORDER_NORMAL);
+    SetStyleDefault("cursor", CB_ACTIVE_CURSOR);
+    SetStyleDefault("verticalAlign", "middle");
+    
+    UpdateState();
+    
+    attachEvent("onpropertychange", CmdBarBtn_PropChange);
+  }
+  
+  function CmdBarBtn_PropChange()
+  {
+    switch(window.event.propertyName)
+    {
+      case "State":
+        UpdateState();
+        break;
+      case "Image":
+        if(m_oImage)
+          m_oImage.src = Image;
+        else
+        {
+          var sImgTag = "<img style=\"vertical-align: middle;\" id=\"" + uniqueID + "_image\" src=\"" + Image + "\" />";
+          insertAdjacentHTML("AfterBegin", sImgTag);
+          style.padding = "0px 1px 0px 1px";
+          m_oImage = window.document.all[uniqueID + "_image"];
+          m_oImage.Status = Status;
+          m_oImage.Title = Title;
+          m_oImage.title = title;
+        }
+        break;
+    }
+  }
+  
+  function ShowMenu()
+  {
+    if(!window.document.all[Menu])
+      return;
+    
+    var x, y;
+    y = offsetTop + parentElement.offsetTop + parentElement.offsetHeight - 3;
+    x = offsetLeft + parentElement.offsetLeft + 1;
+    window.document.all[Menu].ShowMenu(x, y, element, false);
+    
+    event.cancelBubble = true;
+  }
+  
+  function UpdateState()
+  {
+    if(State == "Disabled")
+    {
+      style.filter = CB_FILTER_DISABLED;
+      style.color = CB_COLOR_DISABLED;
+      if(m_oImage)
+      {
+        m_oImage.style.filter = CB_FILTER_IMAGE_DISABLED;
+      }
+    }
+    if(State == "Checked")
+    {
+      style.filter = "";
+      style.color = CB_COLOR_FG;
+      style.backgroundColor = CB_CTL_COLOR_BG_ACTIVE;
+      style.border = CB_CTL_BORDER_ACTIVE;
+    }
+    if(State == "Normal" || State == "")
+    {
+      style.filter = "";
+      style.color = CB_COLOR_FG;
+      if(m_oImage)
+      {
+        m_oImage.style.filter = "";
+      }
+    }
+  }
+  
+  </SCRIPT>
+</PUBLIC:COMPONENT>  

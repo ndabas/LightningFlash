@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Style</title>
+<link rel="stylesheet" type="text/css" href="Dialogs.css" />
+<script>
+
+var g_Style = null;
+
+function OK_Click()
+{
+  window.returnValue = g_Style;
+  window.close();
+  return true;
+}
+
+function Cancel_Click()
+{
+  window.close();
+  return true;
+}
+
+function Load()
+{
+  g_Style = window.dialogArguments;
+  
+  var propArr = new Array();
+  for(elem in g_Style)
+  {
+    propArr[propArr.length] = elem;
+  }
+  propArr.sort();
+  for(var i = 0; i < propArr.length; i++)
+  {
+    cmbStyleProps.options[cmbStyleProps.options.length] = new Option(propArr[i], propArr[i]);
+  }
+  txtCSS.value = g_Style.cssText;
+}
+
+function StyleProps_Change()
+{
+  var sStyleProp = cmbStyleProps.options[cmbStyleProps.selectedIndex].value;
+  txtPropVal.value = g_Style[sStyleProp];
+}
+
+function PropVal_Change()
+{
+  var sStyleProp = cmbStyleProps.options[cmbStyleProps.selectedIndex].value;
+  g_Style[sStyleProp] = txtPropVal.value;
+  txtCSS.value = g_Style.cssText;
+}
+
+function CSS_Change()
+{
+  g_Style.cssText = txtCSS.value;
+}
+
+</script>
+</head>
+<body onload="return Load();">
+<table><tr>
+  <td>
+  <table>
+  <tr><td>Style properties:</td><td>Value:</td></tr>
+  <tr>
+  <td><select size="15" style="width: 140px;" id="cmbStyleProps" onchange="return StyleProps_Change();"></select></td>
+  <td valign="top"><input type="text" style="width: 240px;" id="txtPropVal" onchange="return PropVal_Change();"/>
+  <br />
+  CSS Declaration:<br />
+  <textarea id="txtCSS" style="width: 240px; height: 150px;" onchange="return CSS_Change();"></textarea>
+  </td>
+  </tr>
+  </table>
+  </td>
+  <td valign="top"><button type="submit" onclick="return OK_Click();">OK</button><br />
+  <button type="reset" onclick="return Cancel_Click();">Cancel</button></td>
+</tr>
+</table>
+</body>
+</html>
